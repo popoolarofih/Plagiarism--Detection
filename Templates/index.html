@@ -26,6 +26,9 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ .highlight {
+            color: red;
+        }
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -10207,32 +10210,32 @@ h6,
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $('#plagiarism-form').on('submit', function(event){
-                event.preventDefault();
-                var userInput = $('#text-input').val();
-                $.ajax({
-                    url: '/check',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({text: userInput}),
-                    success: function(response) {
-                        $('#result').html(
-                            '<div class="alert alert-success">' +
-                            'Plagiarism Check Score: ' + response.similarity + '<br>' +
-                            'Source URL: <a href="' + response.url + '" target="_blank">' + response.url + '</a><br>' +
-                            'Content Snippet: ' + response.content +
-                            '</div>'
-                        );
-                    },
-                    error: function(error) {
-                        var errorMessage = error.responseJSON ? error.responseJSON.error : 'An unknown error occurred';
-                        $('#result').html('<div class="alert alert-danger">Error: ' + errorMessage + '</div>');
-                    }
-                });
-            });
-        });
-    </script>
+      $(document).ready(function(){
+          $('#plagiarism-form').on('submit', function(event){
+              event.preventDefault();
+              var userInput = $('#text-input').val();
+              $.ajax({
+                  url: '/check',
+                  type: 'POST',
+                  contentType: 'application/json',
+                  data: JSON.stringify({text: userInput}),
+                  success: function(response) {
+                      $('#result').html(
+                          '<div class="alert alert-success">' +
+                          'Plagiarism Score: ' + response.similarity + '%<br>' +
+                          'Matched URL: <a href="' + response.url + '" target="_blank">' + response.url + '</a><br>' +
+                          'Content Snippet: ' + response.highlighted_content +
+                          '</div>'
+                      );
+                  },
+                  error: function(error) {
+                      var errorMessage = error.responseJSON ? error.responseJSON.error : 'An unknown error occurred';
+                      $('#result').html('<div class="alert alert-danger">Error: ' + errorMessage + '</div>');
+                  }
+              });
+          });
+      });
+      </script>
 
 </body>
 
